@@ -20,7 +20,7 @@ Install resulting wheel in another environment and run it there.
 ### Installing application and running it
 
 1. poetry install
-1. poetry run trainer
+1. poetry run app
 
 ## Nix
 

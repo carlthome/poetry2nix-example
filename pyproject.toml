@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "my_package"
+name = "app"
 version = "0.1.0"
 description = ""
 authors = ["Carl Thomé <carlthome@gmail.com>"]
@@ -15,7 +15,7 @@ black = "^22.6.0"
 pytest = "^7.1.2"
 
 [tool.poetry.scripts]
-my-package = "my_package.__main__:main"
+app = "app.__main__:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
