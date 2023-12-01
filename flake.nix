@@ -1,32 +1,17 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    utils.url = "github:numtide/flake-utils";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, utils }:
+  outputs = { self, nixpkgs, flake-utils }:
     let
-      out = system:
+      mkSystem = system:
         let pkgs = nixpkgs.legacyPackages."${system}";
-        in rec {
-
-          devShells.default = pkgs.mkShell {
-            buildInputs = with pkgs; [
-              python3Packages.poetry
-            ];
-          };
-
-          packages.default = with pkgs.poetry2nix; mkPoetryApplication {
-            projectDir = ./.;
-            preferWheels = true;
-          };
-
-          apps.default = utils.lib.mkApp {
-            drv = packages.default;
-          };
-
+        in {
+          devShells.default = import ./shell.nix { inherit pkgs; };
+          packages.default = import ./default.nix { inherit pkgs; };
         };
     in
-    with utils.lib; eachSystem defaultSystems out;
-
+    flake-utils.lib.eachDefaultSystem mkSystem;
 }
