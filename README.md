@@ -1,33 +1,28 @@
-# Testing nix flakes with poetry2nix
+# poetry2nix template
 
-## Created by
+## Usage
 
-1. Installing `nix` with flakes enabled and installing `git`.
-1. git init
-1. nix flake init -t templates#poetry
-1. git add .
-1. nix develop
-1. poetry init
+Install and launch the application with
 
-## Poetry
+```sh
+nix profile install
+app
+```
 
-### Building
+or the Python package only with
 
-1. poetry build
+```sh
+poetry install
+poetry run app
+```
 
-Install resulting wheel in another environment and run it there.
+You can also use `nix run` to launch the application directly.
 
-### Installing application and running it
+## Develop
 
-1. poetry install
-1. poetry run app
-
-## Nix
-
-### Building
-
-1. nix build
-
-### Installing application and running it
-
-1. nix run
+1. Run `nix develop` or `poetry shell` to enter a development environment
+1. Check that `poetry.lock` and `flake.lock` are up to date with `poetry check` and `nix flake check`
+1. Either build the Python package with `poetry build`, or the Nix package with `nix build`
+1. Run tests with `poetry run pytest` or `nix develop --command pytest`
+1. Update the `poetry.lock` file with `poetry update` and the `flake.lock` file with `nix flake update`
+1. Release a new version with `poetry version prerelease` and `poetry publish`
