@@ -12,7 +12,11 @@
         inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryApplication;
       in
       {
-        packages.default = mkPoetryApplication { projectDir = self; };
+        packages.default = mkPoetryApplication {
+          python = pkgs.python310;
+          projectDir = self;
+        };
+
         devShells.default = pkgs.mkShell {
           inputsFrom = [ self.packages.${system}.default ];
           packages = [ pkgs.poetry ];
